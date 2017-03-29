@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">SamsungGallery</string>
+    <string name="KEY_ALBUM">albumName</string>
+</resources>
