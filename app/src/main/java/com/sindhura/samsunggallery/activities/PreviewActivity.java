@@ -26,6 +26,7 @@ public class PreviewActivity extends FragmentActivity {
             String albumName = getIntent().getExtras().getString(getResources().getString(R.string.KEY_ALBUM), null);
             if (albumName != null) {
                 ViewPager mPager = (ViewPager) findViewById(R.id.pager);
+                PhotoUtils.adjustSize(mPager, 0);
                 mPager.setAdapter(new PreviewAdapter(this, albumName, PhotoUtils.getAssetFiles(this, getResources().getString(R.string.KEY_FOLDER) + "/"  + albumName)));
             }
         }

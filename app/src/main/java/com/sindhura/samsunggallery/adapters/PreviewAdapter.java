@@ -1,6 +1,7 @@
 package com.sindhura.samsunggallery.adapters;
 
 import android.content.Context;
+import android.os.Build;
 import android.support.v4.view.PagerAdapter;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
@@ -35,8 +36,13 @@ public class PreviewAdapter extends PagerAdapter {
     public Object instantiateItem(ViewGroup collection, int position) {
         LayoutInflater inflater = LayoutInflater.from(context);
         ViewGroup layout = (ViewGroup) inflater.inflate(R.layout.adapter_preview, collection, false);
-        ((ImageView)layout.findViewById(R.id.ivPreview)).setImageDrawable(PhotoUtils.getPhotoDrawable(context, context.getResources().getString(R.string.KEY_FOLDER) + "/" + albumName + "/" + photoFileNames.get(position)));
-        PhotoUtils.adjustSize(layout, -200);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            ((ImageView)layout.findViewById(R.id.ivPreview)).setBackground(PhotoUtils.getPhotoDrawable(context, context.getResources().getString(R.string.KEY_FOLDER) + "/" + albumName + "/" + photoFileNames.get(position)));
+        }
+        else{
+            ((ImageView)layout.findViewById(R.id.ivPreview)).setBackgroundDrawable(PhotoUtils.getPhotoDrawable(context, context.getResources().getString(R.string.KEY_FOLDER) + "/" + albumName + "/" + photoFileNames.get(position)));
+        }
+        PhotoUtils.adjustSize(layout, 0);
         collection.addView(layout);
         return layout;
     }

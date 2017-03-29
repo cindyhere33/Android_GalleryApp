@@ -15,6 +15,8 @@ import android.widget.TextView;
 import com.sindhura.samsunggallery.R;
 import com.sindhura.samsunggallery.utils.PhotoUtils;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,8 +56,15 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.ViewHolder> 
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         Drawable photo = PhotoUtils.getPhotoDrawable(holder.ivPic.getContext(), holder.ivPic.getContext().getResources().getString(R.string.KEY_FOLDER) + "/" + albumName + "/" + photoFileNames.get(position));
         PhotoUtils.adjustSize(holder.ivPic, 350);
-        if (photo != null)
-            holder.ivPic.setImageDrawable(photo);
+        if (photo != null) {
+            try {
+                InputStream is = holder.ivPic.getContext().getAssets().open(holder.ivPic.getContext().getResources().getString(R.string.KEY_FOLDER) + "/" + albumName + "/" + photoFileNames.get(position));
+                holder.ivPic.setImageBitmap(PhotoUtils.decodeSampledBitmapFromResource(is, 500, 500));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
         holder.tvTitle.setText(PhotoUtils.getDisplayName(photoFileNames.get(position)));
     }
 
