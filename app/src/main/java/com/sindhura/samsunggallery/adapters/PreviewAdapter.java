@@ -2,10 +2,12 @@ package com.sindhura.samsunggallery.adapters;
 
 import android.content.Context;
 import android.support.v4.view.PagerAdapter;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.sindhura.samsunggallery.R;
 import com.sindhura.samsunggallery.utils.PhotoUtils;
@@ -34,6 +36,7 @@ public class PreviewAdapter extends PagerAdapter {
         LayoutInflater inflater = LayoutInflater.from(context);
         ViewGroup layout = (ViewGroup) inflater.inflate(R.layout.adapter_preview, collection, false);
         ((ImageView)layout.findViewById(R.id.ivPreview)).setImageDrawable(PhotoUtils.getPhotoDrawable(context, context.getResources().getString(R.string.KEY_FOLDER) + "/" + albumName + "/" + photoFileNames.get(position)));
+        PhotoUtils.adjustSize(layout, -200);
         collection.addView(layout);
         return layout;
     }
@@ -52,6 +55,7 @@ public class PreviewAdapter extends PagerAdapter {
     public boolean isViewFromObject(View view, Object object) {
         return view == object;
     }
+
 
 
 }

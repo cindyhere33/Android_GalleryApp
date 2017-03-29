@@ -53,7 +53,7 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         Drawable photo = PhotoUtils.getPhotoDrawable(holder.ivPic.getContext(), holder.ivPic.getContext().getResources().getString(R.string.KEY_FOLDER) + "/" + albumName + "/" + photoFileNames.get(position));
-        adjustSize(holder.ivPic);
+        PhotoUtils.adjustSize(holder.ivPic, 350);
         if (photo != null)
             holder.ivPic.setImageDrawable(photo);
         holder.tvTitle.setText(PhotoUtils.getDisplayName(photoFileNames.get(position)));
@@ -65,13 +65,4 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.ViewHolder> 
         return photoFileNames.size();
     }
 
-    private void adjustSize(ImageView v) {
-        WindowManager wm = (WindowManager) v.getContext().getSystemService(Context.WINDOW_SERVICE);
-        Display display = wm.getDefaultDisplay();
-        Integer size = display.getWidth() - 350;
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        params.height = size;
-        params.width = size;
-        v.setLayoutParams(params);
-    }
 }

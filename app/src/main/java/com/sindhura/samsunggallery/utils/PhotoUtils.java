@@ -1,8 +1,17 @@
 package com.sindhura.samsunggallery.utils;
 
+import android.app.Activity;
 import android.content.Context;
+import android.graphics.Point;
 import android.graphics.drawable.Drawable;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Display;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -38,6 +47,21 @@ public class PhotoUtils {
 
     public static String getDisplayName(String name){
         return name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
+    }
+
+    public static Display getDisplayMetrics(Context context){
+        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        return wm.getDefaultDisplay();
+    }
+
+   public static void adjustSize(View v, Integer adjustment) {
+       DisplayMetrics metrics = new DisplayMetrics();
+       ((Activity) v.getContext()).getWindowManager().getDefaultDisplay().getMetrics(metrics);
+       int size = metrics.widthPixels-adjustment;
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        params.height = size;
+        params.width = size;
+        v.setLayoutParams(params);
     }
 
 }
