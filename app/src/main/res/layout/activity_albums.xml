@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:background="@color/dark_grey"
     android:layout_height="match_parent"
-    tools:context="com.sindhura.samsunggallery.MainActivity">
+    tools:context="com.sindhura.samsunggallery.activities.MainActivity">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_main"

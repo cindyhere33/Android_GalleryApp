@@ -1,4 +1,4 @@
-package com.sindhura.samsunggallery;
+package com.sindhura.samsunggallery.models;
 
 import android.graphics.drawable.Drawable;
 

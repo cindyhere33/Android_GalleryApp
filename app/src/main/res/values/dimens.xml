@@ -7,14 +7,14 @@
     <dimen name="padding1">5dp</dimen>
     <dimen name="padding2">7dp</dimen>
     <dimen name="padding3">10dp</dimen>
-    <dimen name="padding4">14dp</dimen>
+    <dimen name="padding4">50dp</dimen>
     <dimen name="textPadding">10dp</dimen>
 
 
 
     <!--Text sizes-->
     <dimen name="textSize_small">12sp</dimen>
-    <dimen name="textSize_medium">14sp</dimen>
+    <dimen name="textSize_medium">16sp</dimen>
     <dimen name="textSize_large">20sp</dimen>
     <dimen name="textSize_xlarge">24sp</dimen>
 
