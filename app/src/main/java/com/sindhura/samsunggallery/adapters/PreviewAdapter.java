@@ -48,7 +48,7 @@ public class PreviewAdapter extends PagerAdapter {
             ((ImageView) layout.findViewById(R.id.ivPreview)).setBackgroundDrawable(PhotoUtils.getBackgroundDrawable(context.getResources(), PhotoUtils.getPhotoDrawable(context, context.getResources().getString(R.string.KEY_FOLDER) + "/" + albumName + "/" + photoFileNames.get(position))));
         }
         //Set the size of the image displayed
-        PhotoUtils.adjustSize(layout, 0);
+        PhotoUtils.adjustSizeToScreenWidth(layout, 0);
         collection.addView(layout);
         return layout;
     }
@@ -68,7 +68,6 @@ public class PreviewAdapter extends PagerAdapter {
     public boolean isViewFromObject(View view, Object object) {
         return view == object;
     }
-
 
 
 }

@@ -24,6 +24,7 @@ public class PicturesActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_photos);
+        PhotoUtils.updateScreenWidth(this);
 
         //Collapsing toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);

@@ -25,6 +25,15 @@ import java.util.List;
 
 public class PhotoUtils {
 
+    private static Integer SCREEN_WIDTH = 0;
+
+    //Set the screen width
+    public static void updateScreenWidth(Context context) {
+        DisplayMetrics metrics = new DisplayMetrics();
+        ((Activity) context).getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        SCREEN_WIDTH = metrics.widthPixels;
+    }
+
     //Get a list of all the files under the given folder path in assets folder
     public static List<String> getAssetFiles(Context context, String path) {
         try {
@@ -60,15 +69,25 @@ public class PhotoUtils {
     }
 
     //Set view height and width to screen width minus the adjustment
-    public static int adjustSize(View v, Integer adjustment) {
+    public static int adjustSize(Context context, View v, Integer adjustment) {
         DisplayMetrics metrics = new DisplayMetrics();
-        ((Activity) v.getContext()).getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        ((Activity) context).getWindowManager().getDefaultDisplay().getMetrics(metrics);
         int size = metrics.widthPixels - adjustment;
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         params.height = size;
         params.width = size;
         v.setLayoutParams(params);
         return size;
+    }
+
+    //Set the size of view to screen size
+    public static void adjustSizeToScreenWidth(View v, Integer adjustment) {
+        if (SCREEN_WIDTH == 0) return;
+        Integer size = SCREEN_WIDTH - adjustment;
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        params.height = size;
+        params.width = size;
+        v.setLayoutParams(params);
     }
 
 

@@ -56,7 +56,7 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.ViewHolder> 
         Bitmap photo = PhotoUtils.getPhotoDrawable(holder.ivPic.getContext(), holder.ivPic.getContext().getResources().getString(R.string.KEY_FOLDER) + "/" + albumName + "/" + photoFileNames.get(position));
 
         //Set the size of the pic
-        PhotoUtils.adjustSize(holder.ivPic, 350);
+        PhotoUtils.adjustSize(holder.ivPic.getContext(), holder.ivPic, 350);
         if (photo != null) {
             //Set the imageview to show the photo
             holder.ivPic.setImageBitmap(photo);

@@ -16,9 +16,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".activities.PicturesActivity" />
-        <activity
-            android:name=".activities.PreviewActivity"
-            android:theme="@style/Theme.Transparent" />
     </application>
 
 </manifest>

@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_albums);
+        PhotoUtils.updateScreenWidth(this);
 
         //Recycler view with LinearLayout Manager to show albums
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rv_main);
@@ -29,6 +30,8 @@ public class MainActivity extends AppCompatActivity {
 
         //Populate album names from assets ( folder name in resources )
         recyclerView.setAdapter(new AlbumAdapter(PhotoUtils.getAssetFiles(this, getResources().getString(R.string.KEY_FOLDER))));
+
+
     }
 
 }
