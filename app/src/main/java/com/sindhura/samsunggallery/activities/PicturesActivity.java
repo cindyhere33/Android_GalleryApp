@@ -24,20 +24,32 @@ public class PicturesActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_photos);
+
+        //Collapsing toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        //Display the back arrow
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+        //Initialize recyclerView to show photos
         RecyclerView rvPhotos = (RecyclerView) findViewById(R.id.rvPhoto);
+
+        //Get name of the album from which the photos are to be displayed
         if (getIntent().hasExtra(getResources().getString(R.string.KEY_ALBUM))) {
             String albumName = getIntent().getExtras().getString(getResources().getString(R.string.KEY_ALBUM), null);
             if (albumName != null) {
+                //Initialize recyclerView with vertical linear layout
                 rvPhotos.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-                rvPhotos.setAdapter(new PhotoAdapter(albumName, PhotoUtils.getAssetFiles(this, "Photos/" + albumName)));
+                //Populate photos from the album in assets
+                rvPhotos.setAdapter(new PhotoAdapter(albumName, PhotoUtils.getAssetFiles(this, getResources().getString(R.string.KEY_FOLDER) + "/" + albumName)));
             }
         }
     }
 
+
+    //Define behaviour of pressing the back arrow in the toolbar
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();

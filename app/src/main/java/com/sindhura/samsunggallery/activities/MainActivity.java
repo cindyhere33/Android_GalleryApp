@@ -1,23 +1,18 @@
 package com.sindhura.samsunggallery.activities;
 
-import android.graphics.drawable.Drawable;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 
 import com.sindhura.samsunggallery.R;
-import com.sindhura.samsunggallery.models.Album;
 import com.sindhura.samsunggallery.adapters.AlbumAdapter;
 import com.sindhura.samsunggallery.utils.PhotoUtils;
 
-import java.io.IOException;
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+/**
+ * Created by Sindhura on 3/29/2017.
+ */
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -27,9 +22,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_albums);
+
+        //Recycler view with LinearLayout Manager to show albums
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rv_main);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(new AlbumAdapter(PhotoUtils.getAssetFiles(this, "Photos")));
+
+        //Populate album names from assets ( folder name in resources )
+        recyclerView.setAdapter(new AlbumAdapter(PhotoUtils.getAssetFiles(this, getResources().getString(R.string.KEY_FOLDER))));
     }
 
 }

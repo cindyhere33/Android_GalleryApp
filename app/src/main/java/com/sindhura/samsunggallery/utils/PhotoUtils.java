@@ -2,18 +2,15 @@ package com.sindhura.samsunggallery.utils;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Rect;
-import android.graphics.drawable.Drawable;
+import android.graphics.drawable.BitmapDrawable;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.Display;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.LinearLayout;
 
 import java.io.IOException;
@@ -23,11 +20,12 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Created by sxk159231 on 3/29/2017.
+ * Created by Sindhura on 3/29/2017.
  */
 
 public class PhotoUtils {
 
+    //Get a list of all the files under the given folder path in assets folder
     public static List<String> getAssetFiles(Context context, String path) {
         try {
             String[] albumPics = context.getAssets().list(path);
@@ -39,9 +37,10 @@ public class PhotoUtils {
         return new ArrayList<>();
     }
 
-    public static Drawable getPhotoDrawable(Context context, String path) {
+    //Get a compressed Bitmap of the image with the given path in assets folder
+    public static Bitmap getPhotoDrawable(Context context, String path) {
         try {
-            return Drawable.createFromStream(context.getAssets().open(path), null);
+            return decodeSampledBitmapFromResource(context.getAssets().open(path), context.getAssets().open(path), 500, 500);
         } catch (IOException e) {
             Log.e(context.getClass().getName(), "Error getting drawable from path " + path);
             e.printStackTrace();
@@ -49,15 +48,18 @@ public class PhotoUtils {
         return null;
     }
 
+    //Convert Bitmap into BitmapDrawable
+    public static BitmapDrawable getBackgroundDrawable(Resources res, Bitmap bitmap) {
+        return new BitmapDrawable(res, bitmap);
+    }
+
+
+    //Capitalize first letter of filename
     public static String getDisplayName(String name) {
         return name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
     }
 
-    public static Display getDisplayMetrics(Context context) {
-        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-        return wm.getDefaultDisplay();
-    }
-
+    //Set view height and width to screen width minus the adjustment
     public static int adjustSize(View v, Integer adjustment) {
         DisplayMetrics metrics = new DisplayMetrics();
         ((Activity) v.getContext()).getWindowManager().getDefaultDisplay().getMetrics(metrics);
@@ -70,16 +72,18 @@ public class PhotoUtils {
     }
 
 
-    public static Bitmap decodeSampledBitmapFromResource(InputStream is, int reqWidth, int reqHeight) {
+    //Image compression
+    private static Bitmap decodeSampledBitmapFromResource(InputStream is, InputStream is2, int reqWidth, int reqHeight) {
         final BitmapFactory.Options options = new BitmapFactory.Options();
+        Rect rect = new Rect(-1, -1, -1, -1);
         options.inJustDecodeBounds = true;
-        BitmapFactory.decodeStream(is, new Rect(reqHeight, reqHeight, reqHeight, reqHeight), options);
+        BitmapFactory.decodeStream(is, rect, options);
         options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
         options.inJustDecodeBounds = false;
-        return BitmapFactory.decodeStream(is, new Rect(reqHeight, reqHeight, reqHeight, reqHeight), options);
+        return BitmapFactory.decodeStream(is2, rect, options);
     }
 
-    public static int calculateInSampleSize(BitmapFactory.Options options, int reqWidth, int reqHeight) {
+    private static int calculateInSampleSize(BitmapFactory.Options options, int reqWidth, int reqHeight) {
         final int height = options.outHeight;
         final int width = options.outWidth;
         int inSampleSize = 1;

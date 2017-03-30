@@ -1,22 +1,16 @@
 package com.sindhura.samsunggallery.adapters;
 
-import android.content.Context;
-import android.graphics.drawable.Drawable;
+import android.graphics.Bitmap;
 import android.support.v7.widget.RecyclerView;
-import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.sindhura.samsunggallery.R;
 import com.sindhura.samsunggallery.utils.PhotoUtils;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,7 +20,10 @@ import java.util.List;
 
 public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.ViewHolder> {
 
+    //Names of all the photos
     private List<String> photoFileNames = new ArrayList<>();
+
+    //Album name
     private String albumName = "";
     private String TAG = getClass().getName();
 
@@ -48,27 +45,28 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.ViewHolder> 
 
     @Override
     public PhotoAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        //Inflate the layout for photos
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.adapter_photos, parent, false);
         return new ViewHolder(v);
     }
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
-        Drawable photo = PhotoUtils.getPhotoDrawable(holder.ivPic.getContext(), holder.ivPic.getContext().getResources().getString(R.string.KEY_FOLDER) + "/" + albumName + "/" + photoFileNames.get(position));
+        //Get compressed version of each photo from the asset folder based on album name
+        Bitmap photo = PhotoUtils.getPhotoDrawable(holder.ivPic.getContext(), holder.ivPic.getContext().getResources().getString(R.string.KEY_FOLDER) + "/" + albumName + "/" + photoFileNames.get(position));
+
+        //Set the size of the pic
         PhotoUtils.adjustSize(holder.ivPic, 350);
         if (photo != null) {
-            try {
-                InputStream is = holder.ivPic.getContext().getAssets().open(holder.ivPic.getContext().getResources().getString(R.string.KEY_FOLDER) + "/" + albumName + "/" + photoFileNames.get(position));
-                holder.ivPic.setImageBitmap(PhotoUtils.decodeSampledBitmapFromResource(is, 500, 500));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            //Set the imageview to show the photo
+            holder.ivPic.setImageBitmap(photo);
         }
-
+        //TextView displays the name of the photo
         holder.tvTitle.setText(PhotoUtils.getDisplayName(photoFileNames.get(position)));
     }
 
 
+    //Get the number of photos in the album
     @Override
     public int getItemCount() {
         return photoFileNames.size();

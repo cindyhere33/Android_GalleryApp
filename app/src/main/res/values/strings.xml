@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">SamsungGallery</string>
+    <string name="app_name">Samsung Coding Challenge</string>
     <string name="KEY_ALBUM">albumName</string>
     <string name="KEY_FOLDER">Photos</string>
 </resources>
