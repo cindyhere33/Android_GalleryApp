@@ -9,17 +9,16 @@
         android:id="@+id/ivPic"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:scaleType="fitXY"
         android:adjustViewBounds="true"
-        />
+        android:scaleType="fitXY" />
 
     <TextView
         android:id="@+id/tvName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:textColor="@android:color/black"
         android:padding="@dimen/padding2"
+        android:textColor="@android:color/black"
         android:textSize="@dimen/textSize_medium" />
 
 </LinearLayout>

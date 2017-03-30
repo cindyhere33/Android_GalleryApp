@@ -6,7 +6,6 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".activities.MainActivity">
@@ -16,10 +15,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.PicturesActivity"/>
-        <activity android:name=".activities.PreviewActivity"
-            android:theme="@style/Theme.Transparent"
-            />
+        <activity android:name=".activities.PicturesActivity" />
+        <activity
+            android:name=".activities.PreviewActivity"
+            android:theme="@style/Theme.Transparent" />
     </application>
 
 </manifest>
